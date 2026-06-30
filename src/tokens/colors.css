@@ -1,0 +1,124 @@
+/*
+ * _able Design System — Colour Tokens
+ * Source of truth for all brand colours.
+ * Do not override in consuming repos — raise a PR here.
+ *
+ * Reference: https://www.figma.com/design/ZS7S0ROGaoHBNfU5iHB1re/_able-Brand-Guidelines
+ */
+
+:root {
+  /* ── PRIMARY: Mulberry family ───────────────────────────── */
+  --able-mulberry-black:  #180113;   /* darkest bg, primary text on light */
+  --able-mulberry-deep:   #2E0524;   /* sidebar, dark card bg */
+  --able-mulberry:        #3C012E;   /* dark surface card */
+  --able-mulberry-bright: #6A0446;   /* operations, active states on dark */
+
+  /* ── PRIMARY: Aquamarine family ────────────────────────── */
+  --able-aqua:            #42C9AE;   /* primary accent — CTA, active, links */
+  --able-aqua-deep:       #009280;   /* hover state, positive/success role */
+
+  /* ── NEUTRAL: Affogato family (warm coffee tones) ─────── */
+  --able-foam:            #F6F3EE;   /* page background (light mode) */
+  --able-steam:           #FBFAF8;   /* card / input surface (light mode) */
+  --able-crema:           #E8E2D7;   /* pressed / subtle surface */
+  --able-cortado:         #C2B79D;   /* strong border / divider */
+  --able-latte:           #A99877;   /* muted text */
+  --able-affogato:        #9A855D;   /* labels, secondary text */
+  --able-storm:           #888888;   /* placeholder / disabled text */
+  --able-fog:             #D3D3D3;   /* default border */
+
+  /* ── SECONDARY: Sapphire ────────────────────────────────
+     Use sparingly — data viz, category tags, AI/tech indicators */
+  --able-sapphire:        #654DF9;
+  --able-sapphire-deep:   #3C26C4;
+
+  /* ── SECONDARY: Peridot ─────────────────────────────────
+     Use sparingly — channels, integrations, build status */
+  --able-peridot:         #C3D044;
+  --able-peridot-deep:    #828F13;
+
+  /* ── SECONDARY: Topaz ───────────────────────────────────
+     Use sparingly — consumer/mobile, highlights */
+  --able-topaz:           #EF61CE;
+  --able-topaz-deep:      #89105F;
+
+  /* ── SEMANTIC — light mode ──────────────────────────────
+     Applied via CSS var in consuming code, never hardcoded hex */
+  --able-success:         #19540D;
+  --able-success-dim:     rgba(25, 84, 13, 0.09);
+  --able-warning:         #9A855D;
+  --able-warning-dim:     rgba(154, 133, 93, 0.12);
+  --able-danger:          #A10000;
+  --able-danger-dim:      rgba(161, 0, 0, 0.09);
+  --able-info:            #3C26C4;
+  --able-info-dim:        rgba(60, 38, 196, 0.09);
+
+  /* ── SURFACE tokens — light mode ───────────────────────── */
+  --able-bg:              var(--able-foam);
+  --able-surface:         #FFFFFF;
+  --able-surface-2:       var(--able-steam);
+  --able-surface-3:       #F0EDE6;
+  --able-hover:           rgba(24, 1, 19, 0.04);
+
+  --able-border:          rgba(24, 1, 19, 0.08);
+  --able-border-md:       var(--able-fog);
+  --able-border-hi:       var(--able-cortado);
+
+  --able-text:            var(--able-mulberry-black);
+  --able-text-2:          var(--able-storm);
+  --able-text-muted:      var(--able-latte);
+  --able-text-3:          var(--able-cortado);
+
+  --able-accent:          var(--able-aqua);
+  --able-accent-hover:    var(--able-aqua-deep);
+  --able-accent-dim:      rgba(66, 201, 174, 0.12);
+  --able-accent-glow:     rgba(66, 201, 174, 0.22);
+
+  /* ── SIDEBAR tokens — always dark regardless of page theme */
+  --able-sidebar-bg:            var(--able-mulberry-deep);
+  --able-sidebar-border:        rgba(255, 255, 255, 0.08);
+  --able-sidebar-text:          rgba(255, 255, 255, 0.62);
+  --able-sidebar-text-active:   #FFFFFF;
+  --able-sidebar-hover:         rgba(255, 255, 255, 0.07);
+  --able-sidebar-active-bg:     rgba(66, 201, 174, 0.15);
+  --able-sidebar-active-border: rgba(66, 201, 174, 0.28);
+  --able-sidebar-accent:        var(--able-aqua);
+  --able-sidebar-muted:         rgba(255, 255, 255, 0.32);
+  --able-sidebar-section:       rgba(255, 255, 255, 0.28);
+}
+
+/* ── DARK MODE overrides ────────────────────────────────── */
+[data-theme="dark"] {
+  --able-bg:          var(--able-mulberry-black);
+  --able-surface:     var(--able-mulberry-deep);
+  --able-surface-2:   var(--able-mulberry);
+  --able-surface-3:   #4D1040;
+  --able-hover:       rgba(255, 255, 255, 0.05);
+
+  --able-border:      rgba(255, 255, 255, 0.08);
+  --able-border-md:   rgba(255, 255, 255, 0.14);
+  --able-border-hi:   rgba(255, 255, 255, 0.24);
+
+  --able-text:        #FFFFFF;
+  --able-text-2:      rgba(255, 255, 255, 0.62);
+  --able-text-muted:  rgba(255, 255, 255, 0.38);
+  --able-text-3:      rgba(255, 255, 255, 0.24);
+
+  --able-accent:       var(--able-aqua);
+  --able-accent-hover: #5DD9BE;
+  --able-accent-dim:   rgba(66, 201, 174, 0.16);
+  --able-accent-glow:  rgba(66, 201, 174, 0.28);
+
+  --able-success:      var(--able-aqua);
+  --able-success-dim:  rgba(66, 201, 174, 0.15);
+  --able-warning:      var(--able-peridot);
+  --able-warning-dim:  rgba(195, 208, 68, 0.12);
+  --able-danger:       var(--able-topaz);
+  --able-danger-dim:   rgba(239, 97, 206, 0.12);
+  --able-info:         #9B8DFF;
+  --able-info-dim:     rgba(155, 141, 255, 0.12);
+
+  /* Sidebar in dark mode: even deeper */
+  --able-sidebar-bg:     var(--able-mulberry-black);
+  --able-sidebar-border: rgba(255, 255, 255, 0.06);
+}

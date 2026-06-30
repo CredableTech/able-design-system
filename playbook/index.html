@@ -1,0 +1,1416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>_able Design System — Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --m-black: #180113; --m-deep: #2E0524; --m-mid: #3C012E; --m-bright: #6A0446;
+  --aqua: #42C9AE; --aqua-deep: #009280;
+  --foam: #F6F3EE; --steam: #FBFAF8; --crema: #E8E2D7; --cortado: #C2B79D;
+  --latte: #A99877; --affogato: #9A855D; --storm: #888888; --fog: #D3D3D3;
+  --sapphire: #654DF9; --sapphire-deep: #3C26C4;
+  --peridot: #C3D044;  --peridot-deep: #828F13;
+  --topaz: #EF61CE;    --topaz-deep: #89105F;
+  --success: #19540D; --warning: #9A855D; --danger: #A10000; --info: #3C26C4;
+
+  --fd: 'Newsreader', Georgia, serif;
+  --fb: 'Host Grotesk', system-ui, sans-serif;
+  --fm: 'DM Mono', 'JetBrains Mono', monospace;
+
+  --bg:      var(--foam);
+  --surface: #FFFFFF;
+  --text:    var(--m-black);
+  --text2:   var(--storm);
+  --muted:   var(--latte);
+  --border:  rgba(24,1,19,0.08);
+  --border2: var(--fog);
+  --accent:  var(--aqua);
+  --hover:   rgba(24,1,19,0.04);
+  --sh-sm: 0 1px 3px rgba(24,1,19,0.06), 0 1px 2px rgba(24,1,19,0.04);
+  --sh-md: 0 4px 8px rgba(24,1,19,0.06), 0 2px 4px rgba(24,1,19,0.04);
+  --sh-lg: 0 12px 32px rgba(24,1,19,0.09), 0 4px 8px rgba(24,1,19,0.05);
+}
+[data-theme=dark] {
+  --bg:      var(--m-black);
+  --surface: var(--m-deep);
+  --text:    #FFFFFF;
+  --text2:   rgba(255,255,255,0.62);
+  --muted:   rgba(255,255,255,0.38);
+  --border:  rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --hover:   rgba(255,255,255,0.05);
+  --sh-sm: 0 2px 6px rgba(0,0,0,0.5);
+  --sh-md: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  --sh-lg: 0 16px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ── BASE ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--bg); color: var(--text); font-family: var(--fb); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(24,1,19,0.10); border-radius: 10px; }
+[data-theme=dark] ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); }
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+.layout { display: flex; height: 100vh; overflow: hidden; }
+
+/* ── SIDEBAR ─────────────────────────────────────────────── */
+.sidebar {
+  width: 240px; flex-shrink: 0; background: var(--m-deep);
+  display: flex; flex-direction: column; height: 100%;
+  overflow-y: auto; border-right: 1px solid rgba(255,255,255,0.06);
+}
+.sidebar-head {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--aqua); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-mark svg { width: 18px; height: 18px; }
+.logo-name { font-family: var(--fb); font-weight: 700; font-size: 15px; color: #fff; letter-spacing: -0.01em; }
+.logo-tag  { font-family: var(--fm); font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase; }
+.theme-row { display: flex; align-items: center; justify-content: space-between; }
+.version-badge {
+  font-family: var(--fm); font-size: 9px; letter-spacing: 0.10em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  padding: 3px 8px; border-radius: 20px;
+}
+.theme-toggle {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.55);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.10); color: #fff; }
+.theme-toggle svg { width: 14px; height: 14px; }
+
+.sidebar-nav { padding: 12px 10px; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.nav-section { font-family: var(--fm); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); padding: 12px 12px 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 7px; cursor: pointer;
+  color: rgba(255,255,255,0.58); font-size: 13px; font-weight: 500;
+  transition: background 0.12s, color 0.12s; border: 1px solid transparent;
+  user-select: none; white-space: nowrap;
+}
+.nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.nav-item.active { background: rgba(66,201,174,0.15); color: #fff; border-color: rgba(66,201,174,0.28); }
+.nav-item.active::before {
+  content: ''; width: 3px; height: 60%; background: var(--aqua);
+  border-radius: 4px; position: absolute; left: 0;
+}
+.nav-item { position: relative; }
+.nav-icon { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+.nav-item.active .nav-icon, .nav-item:hover .nav-icon { opacity: 1; }
+
+.sidebar-footer { padding: 12px 20px 20px; border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+.sidebar-footer a { font-family: var(--fm); font-size: 10px; color: rgba(255,255,255,0.30); letter-spacing: 0.06em; text-decoration: none; display: block; margin-top: 6px; }
+.sidebar-footer a:hover { color: rgba(255,255,255,0.55); }
+.sidebar-footer-label { font-family: var(--fm); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 4px; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+.main { flex: 1; overflow-y: auto; }
+.section { display: none; }
+.section.active { display: block; }
+
+.page-head {
+  padding: 48px 64px 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky; top: 0; z-index: 10;
+  box-shadow: var(--sh-sm);
+}
+.page-eyebrow {
+  font-family: var(--fm); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--aqua);
+  margin-bottom: 8px;
+}
+.page-title { font-family: var(--fd); font-size: 40px; font-weight: 400; color: var(--text); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 10px; }
+.page-desc { font-size: 15px; color: var(--text2); max-width: 600px; line-height: 1.65; }
+
+.content { padding: 48px 64px; max-width: 1080px; }
+
+.block { margin-bottom: 56px; }
+.block-title {
+  font-family: var(--fm); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.block-desc { font-size: 13.5px; color: var(--text2); line-height: 1.65; margin-bottom: 20px; max-width: 640px; }
+
+/* ── COLOUR SWATCHES ─────────────────────────────────────── */
+.swatch-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.swatch-group { display: flex; flex-direction: column; gap: 6px; }
+.swatch-group-label { font-family: var(--fm); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.swatch {
+  width: 80px; cursor: pointer; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06); transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.swatch:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.swatch-color { height: 56px; width: 100%; }
+.swatch-info { background: var(--surface); padding: 6px 8px; }
+.swatch-name { font-size: 10px; font-weight: 600; color: var(--text); display: block; line-height: 1.3; }
+.swatch-hex  { font-family: var(--fm); font-size: 9px; color: var(--text2); display: block; }
+.swatch-var  { font-family: var(--fm); font-size: 8px; color: var(--muted); display: block; margin-top: 1px; }
+.swatch-copied::after {
+  content: 'Copied'; position: absolute; inset: 0; background: rgba(66,201,174,0.85);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-size: 10px; font-weight: 500; color: #fff;
+  border-radius: 10px; letter-spacing: 0.06em;
+}
+.swatch-lg { width: 120px; }
+.swatch-lg .swatch-color { height: 80px; }
+
+/* Wide swatch for usage tokens */
+.token-row { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.token-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.token-item:last-child { border-bottom: none; }
+.token-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08); flex-shrink: 0; }
+.token-name  { font-family: var(--fm); font-size: 11px; color: var(--text); flex: 1; }
+.token-hex   { font-family: var(--fm); font-size: 11px; color: var(--text2); margin-left: auto; }
+.token-role  { font-size: 12px; color: var(--text2); flex: 2; }
+
+/* ── TYPOGRAPHY SPECIMENS ────────────────────────────────── */
+.type-specimen-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 32px; box-shadow: var(--sh-sm); margin-bottom: 20px;
+}
+.type-meta { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.type-chip {
+  font-family: var(--fm); font-size: 9px; letter-spacing: 0.10em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 20px; background: var(--hover); color: var(--text2);
+  border: 1px solid var(--border);
+}
+.type-chip.active-chip { background: rgba(66,201,174,0.12); color: var(--aqua-deep); border-color: rgba(66,201,174,0.28); }
+.type-scale { display: flex; flex-direction: column; gap: 24px; }
+.type-scale-row { display: flex; align-items: baseline; gap: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.type-scale-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label { font-family: var(--fm); font-size: 9px; color: var(--muted); letter-spacing: 0.10em; text-transform: uppercase; min-width: 80px; flex-shrink: 0; }
+.type-preview { flex: 1; }
+.type-size-note { font-family: var(--fm); font-size: 10px; color: var(--muted); margin-left: auto; flex-shrink: 0; }
+
+/* ── SPACING ─────────────────────────────────────────────── */
+.space-row { display: flex; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.space-row:last-child { border-bottom: none; }
+.space-bar { background: var(--aqua); border-radius: 4px; height: 16px; flex-shrink: 0; }
+.space-name { font-family: var(--fm); font-size: 11px; color: var(--text); min-width: 100px; }
+.space-px   { font-family: var(--fm); font-size: 11px; color: var(--text2); min-width: 40px; }
+.space-use  { font-size: 12px; color: var(--text2); }
+
+/* ── SHADOW DEMOS ────────────────────────────────────────── */
+.shadow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.shadow-card {
+  background: var(--surface); border-radius: 14px; padding: 24px 20px;
+  border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px;
+  transition: all 0.2s;
+}
+.shadow-card:hover { transform: translateY(-2px); }
+.shadow-name { font-family: var(--fm); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.shadow-val  { font-family: var(--fm); font-size: 10px; color: var(--text2); line-height: 1.5; word-break: break-all; }
+
+/* ── COMPONENT DEMOS ─────────────────────────────────────── */
+.demo-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; box-shadow: var(--sh-sm);
+}
+.demo-canvas {
+  padding: 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.demo-canvas.dark-canvas {
+  background: var(--m-black);
+}
+.demo-code {
+  padding: 16px 20px; background: var(--surface);
+}
+.demo-code pre {
+  font-family: var(--fm); font-size: 12px; color: var(--text2);
+  line-height: 1.6; overflow-x: auto; white-space: pre;
+}
+
+/* BADGES */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 9999px;
+  font-family: var(--fm); font-size: 10px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.10em;
+  border: 1px solid transparent; white-space: nowrap; line-height: 1;
+}
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: dot 2.4s ease-in-out infinite; }
+@keyframes dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+.b-success  { background: rgba(25,84,13,.09);     color: #19540D; border-color: rgba(25,84,13,.20);   }
+.b-warning  { background: rgba(154,133,93,.12);   color: #9A855D; border-color: rgba(154,133,93,.25); }
+.b-danger   { background: rgba(161,0,0,.09);      color: #A10000; border-color: rgba(161,0,0,.20);    }
+.b-info     { background: rgba(60,38,196,.09);    color: #3C26C4; border-color: rgba(60,38,196,.20);  }
+.b-sapphire { background: rgba(101,77,249,.10);   color: #654DF9; border-color: rgba(101,77,249,.22); }
+.b-peridot  { background: rgba(130,143,19,.10);   color: #828F13; border-color: rgba(130,143,19,.22); }
+.b-topaz    { background: rgba(137,16,95,.09);    color: #89105F; border-color: rgba(137,16,95,.20);  }
+.b-default  { background: var(--hover);            color: var(--text2); border-color: var(--border);  }
+
+/* dark badge overrides */
+.dark-canvas .b-success  { background: rgba(66,201,174,.15); color: #42C9AE; border-color: rgba(66,201,174,.32); }
+.dark-canvas .b-warning  { background: rgba(195,208,68,.12); color: #C3D044; border-color: rgba(195,208,68,.28); }
+.dark-canvas .b-danger   { background: rgba(239,97,206,.12); color: #EF61CE; border-color: rgba(239,97,206,.28); }
+.dark-canvas .b-info     { background: rgba(155,141,255,.12);color: #9B8DFF; border-color: rgba(155,141,255,.28);}
+.dark-canvas .b-sapphire { background: rgba(101,77,249,.15); color: #9B8DFF; border-color: rgba(101,77,249,.30); }
+.dark-canvas .b-default  { background: rgba(255,255,255,.06);color: rgba(255,255,255,.55); border-color: rgba(255,255,255,.12); }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--fb); font-weight: 600; font-size: 13.5px;
+  padding: 0 16px; height: 36px; border-radius: 8px;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background 0.12s, box-shadow 0.12s, transform 0.1s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--m-deep); color: #fff; border-color: var(--m-deep); }
+.btn-primary:hover { background: var(--m-black); box-shadow: 0 4px 12px rgba(46,5,36,.28); }
+.btn-ghost { background: transparent; color: var(--text2); border-color: var(--border2); }
+.btn-ghost:hover { background: var(--hover); color: var(--text); border-color: var(--border2); }
+.btn-outline { background: transparent; color: var(--aqua-deep); border-color: var(--aqua); }
+.btn-outline:hover { background: rgba(66,201,174,.12); box-shadow: 0 0 0 3px rgba(66,201,174,.20); }
+.btn-destroy { background: transparent; color: var(--danger); border-color: var(--danger); }
+.btn-destroy:hover { background: rgba(161,0,0,.08); }
+.btn-sm { height: 30px; padding: 0 12px; font-size: 12px; border-radius: 6px; }
+.btn-lg { height: 44px; padding: 0 22px; font-size: 15px; border-radius: 10px; }
+
+/* CARDS */
+.card-demo { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--sh-md); }
+.card-demo-dark { background: var(--m-deep); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 24px; color: #fff; }
+.card-h { font-family: var(--fb); font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.card-b { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.dark-canvas .card-b { color: rgba(255,255,255,.55); }
+
+/* TILE DEMO */
+.tile-demo {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px; cursor: pointer;
+  box-shadow: var(--sh-md); transition: all 0.25s; min-width: 220px; max-width: 260px;
+}
+.tile-demo:hover { border-color: var(--tile-color, var(--aqua)); transform: translateY(-4px); box-shadow: var(--sh-lg); }
+.tile-icon-wrap { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.tile-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.tile-tag { font-family: var(--fm); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.tile-status { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--success); }
+.tile-status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.tile-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+.tile-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.tile-footer { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+.tile-demo:hover .tile-arrow { transform: translateX(4px); color: var(--tile-color, var(--aqua)); }
+.tile-arrow { display: inline-block; transition: transform 0.2s, color 0.2s; }
+
+/* KPI BAR DEMO */
+.kpi-bar { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--sh-md); overflow: hidden; }
+.kpi-chip { padding: 22px 24px; border-right: 1px solid var(--border); }
+.kpi-chip:last-child { border-right: none; }
+.kpi-val { font-family: var(--fm); font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+.kpi-label { font-size: 12px; color: var(--text2); font-weight: 500; margin-top: 4px; }
+.kpi-trend { font-family: var(--fm); font-size: 11px; color: var(--muted); margin-top: 4px; }
+.kpi-up { color: var(--success); }
+
+/* SIDEBAR NAV DEMO */
+.sidebar-demo { background: var(--m-deep); border-radius: 14px; padding: 16px 12px; width: 220px; }
+.sn-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 7px; color: rgba(255,255,255,.58); font-size: 13px; font-weight: 500; margin-bottom: 2px; border: 1px solid transparent; position: relative; cursor: pointer; }
+.sn-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+.sn-item.sn-active { background: rgba(66,201,174,.15); color: #fff; border-color: rgba(66,201,174,.28); }
+.sn-item.sn-active::before { content: ''; width: 3px; height: 60%; background: var(--aqua); border-radius: 4px; position: absolute; left: 0; }
+.sn-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--aqua); }
+
+/* LOGIN HERO DEMO */
+.login-demo {
+  background: var(--m-deep); border-radius: 16px; padding: 32px; position: relative; overflow: hidden;
+  background-image: linear-gradient(145deg, rgba(24,1,19,.92), rgba(46,5,36,.82));
+}
+.login-eyebrow { font-family: var(--fm); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 12px; }
+.login-title { font-family: var(--fd); font-size: 36px; font-weight: 400; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+.login-sub { font-size: 14px; color: rgba(255,255,255,.60); line-height: 1.65; margin-bottom: 24px; max-width: 360px; }
+.login-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.login-chip {
+  display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px;
+  border-radius: 8px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.07);
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.72); backdrop-filter: blur(4px);
+}
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.login-metrics { display: flex; gap: 28px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.10); }
+.login-metric { font-family: var(--fm); font-size: 12px; color: rgba(255,255,255,.5); }
+.login-metric strong { color: #fff; font-weight: 700; }
+
+/* ── IN CODE ─────────────────────────────────────────────── */
+.code-block { background: var(--m-black); border-radius: 12px; padding: 20px 24px; overflow-x: auto; }
+.code-block pre { font-family: var(--fm); font-size: 13px; color: rgba(255,255,255,.80); line-height: 1.65; white-space: pre; }
+.code-comment { color: rgba(255,255,255,.30); }
+.code-string  { color: #42C9AE; }
+.code-key     { color: #9B8DFF; }
+.code-tag     { color: #EF61CE; }
+.code-attr    { color: #C3D044; }
+.code-val     { color: #42C9AE; }
+.step-list { display: flex; flex-direction: column; gap: 16px; }
+.step { display: flex; gap: 16px; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--aqua); color: var(--m-black); display: flex; align-items: center; justify-content: center; font-family: var(--fm); font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.step-body { flex: 1; }
+.step-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--text2); }
+
+/* RULE CARDS */
+.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--sh-sm); }
+.rule-card.do { border-left: 3px solid var(--aqua-deep); }
+.rule-card.dont { border-left: 3px solid var(--danger); }
+.rule-label { font-family: var(--fm); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+.rule-card.do .rule-label { color: var(--aqua-deep); }
+.rule-card.dont .rule-label { color: var(--danger); }
+.rule-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.rule-list li { font-size: 13px; color: var(--text2); padding-left: 16px; position: relative; line-height: 1.5; }
+.rule-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; }
+.rule-card.do .rule-list li::before { background: var(--aqua-deep); }
+.rule-card.dont .rule-list li::before { background: var(--danger); }
+
+/* ── BRAND SECTION ───────────────────────────────────────── */
+.brand-hero {
+  background: var(--m-black); border-radius: 20px; padding: 56px 64px;
+  margin-bottom: 32px; position: relative; overflow: hidden;
+}
+.brand-hero::before {
+  content: ''; position: absolute; top: -60%; right: -20%;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(66,201,174,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.brand-eyebrow { font-family: var(--fm); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 16px; }
+.brand-title { font-family: var(--fd); font-size: 52px; font-weight: 300; color: #fff; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 24px; }
+.brand-title em { font-style: normal; color: var(--aqua); }
+.brand-sub { font-size: 16px; color: rgba(255,255,255,.55); line-height: 1.7; max-width: 560px; }
+.principle-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.principle { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--sh-sm); }
+.principle-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--hover); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 16px; }
+.principle-title { font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 6px; }
+.principle-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── LOGO SECTION ────────────────────────────────────────── */
+.logo-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+.logo-swatch { border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+.logo-bg { padding: 40px; display: flex; align-items: center; justify-content: center; height: 140px; }
+.logo-light-bg { background: var(--foam); }
+.logo-dark-bg  { background: var(--m-deep); }
+.logo-black-bg { background: var(--m-black); }
+.logo-white-bg { background: #FFFFFF; }
+.logo-meta { padding: 12px 16px; background: var(--surface); border-top: 1px solid var(--border); }
+.logo-meta-name { font-weight: 600; font-size: 13px; color: var(--text); }
+.logo-meta-desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+.logo-placeholder {
+  font-family: var(--fd); font-size: 28px; font-weight: 400; letter-spacing: -0.02em;
+}
+.logo-placeholder em { font-style: normal; }
+
+/* ── MISC ────────────────────────────────────────────────── */
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#180113" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 2L2 19h20L12 2z"/><line x1="12" y1="9" x2="12" y2="14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">_able</div>
+        <div class="logo-tag">Design System</div>
+      </div>
+    </div>
+    <div class="theme-row">
+      <span class="version-badge">v 1.0.0</span>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">Foundation</div>
+    <div class="nav-item active" data-section="brand" onclick="navigate('brand')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 19h20L12 2z"/></svg>
+      Brand
+    </div>
+    <div class="nav-item" data-section="colour" onclick="navigate('colour')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+      Colour
+    </div>
+    <div class="nav-item" data-section="typography" onclick="navigate('typography')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      Typography
+    </div>
+    <div class="nav-item" data-section="space" onclick="navigate('space')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Space &amp; Layout
+    </div>
+    <div class="nav-item" data-section="elevation" onclick="navigate('elevation')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+      Elevation
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Components</div>
+    <div class="nav-item" data-section="badges" onclick="navigate('badges')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+      Badge
+    </div>
+    <div class="nav-item" data-section="buttons" onclick="navigate('buttons')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="3"/></svg>
+      Button
+    </div>
+    <div class="nav-item" data-section="cards" onclick="navigate('cards')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Card
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Patterns</div>
+    <div class="nav-item" data-section="patterns" onclick="navigate('patterns')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      UI Patterns
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Developers</div>
+    <div class="nav-item" data-section="code" onclick="navigate('code')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Using in Code
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-footer-label">Resources</div>
+    <a href="https://www.figma.com/design/ZS7S0ROGaoHBNfU5iHB1re/_able-Brand-Guidelines" target="_blank">Figma source file ↗</a>
+    <a href="https://github.com/CredableTech/able-design-system" target="_blank">GitHub repo ↗</a>
+    <a href="https://ablegroup.io" target="_blank">ablegroup.io ↗</a>
+  </div>
+</aside>
+
+<!-- ── MAIN ──────────────────────────────────────────────────── -->
+<main class="main">
+
+<!-- ═══════════════════ BRAND ═══════════════════ -->
+<div id="brand" class="section active">
+  <div class="page-head">
+    <div class="page-eyebrow">Foundation</div>
+    <h1 class="page-title">Brand</h1>
+    <p class="page-desc">The _able identity — purpose, voice, and visual direction for Able Group products.</p>
+  </div>
+  <div class="content">
+
+    <div class="block">
+      <div class="brand-hero">
+        <div class="brand-eyebrow">Able Group · Embedded Finance Platform</div>
+        <h2 class="brand-title">Built for the<br><em>people who build</em><br>financial access.</h2>
+        <p class="brand-sub">_able is a configurable lending infrastructure for banks, telcos, and fintechs. One platform. Every product a configuration. Deployed across Africa and India.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Logo usage</div>
+      <p class="block-desc">The _able wordmark is the primary identifier. Use only on approved backgrounds. Do not recolor, stretch, or add effects.</p>
+      <div class="logo-grid">
+        <div class="logo-swatch">
+          <div class="logo-bg logo-foam-bg" style="background:#F6F3EE">
+            <span class="logo-placeholder" style="color:#180113">_<em style="color:#42C9AE">able</em></span>
+          </div>
+          <div class="logo-meta"><div class="logo-meta-name">Dark mark on Foam</div><div class="logo-meta-desc">Primary — default on light backgrounds</div></div>
+        </div>
+        <div class="logo-swatch">
+          <div class="logo-bg logo-dark-bg">
+            <span class="logo-placeholder" style="color:#FFFFFF">_<em style="color:#42C9AE">able</em></span>
+          </div>
+          <div class="logo-meta"><div class="logo-meta-name">Light mark on Mulberry</div><div class="logo-meta-desc">Sidebar, dark hero, dark card — always white</div></div>
+        </div>
+        <div class="logo-swatch">
+          <div class="logo-bg logo-white-bg" style="background:#fff">
+            <span class="logo-placeholder" style="color:#2E0524">_<em style="color:#42C9AE">able</em></span>
+          </div>
+          <div class="logo-meta"><div class="logo-meta-name">Dark mark on White</div><div class="logo-meta-desc">Cards, forms, modals — white surface contexts</div></div>
+        </div>
+        <div class="logo-swatch">
+          <div class="logo-bg" style="background:#180113">
+            <span class="logo-placeholder" style="color:rgba(255,255,255,0.8)">_<em style="color:#42C9AE">able</em></span>
+          </div>
+          <div class="logo-meta"><div class="logo-meta-name">Reversed on Mulberry Black</div><div class="logo-meta-desc">Deep dark mode — app shell</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Brand principles</div>
+      <p class="block-desc">Four words that govern every design decision — copy, layout, interaction, and illustration.</p>
+      <div class="principle-grid">
+        <div class="principle">
+          <div class="principle-icon">⬛</div>
+          <div class="principle-title">Direct</div>
+          <div class="principle-desc">Say what you mean. No hedging, no softening, no filler sentences. If it can be cut, cut it.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">○</div>
+          <div class="principle-title">Clear</div>
+          <div class="principle-desc">Any operator should understand any screen without training. Clarity beats cleverness every time.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">◎</div>
+          <div class="principle-title">Human</div>
+          <div class="principle-desc">Finance is a tool, not a destination. Language and visuals stay grounded and approachable.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-icon">▲</div>
+          <div class="principle-title">Precise</div>
+          <div class="principle-desc">Numbers are the product. Every metric, timestamp, and identifier is typeset with monospace precision.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Voice &amp; tone rules</div>
+      <div class="rule-grid">
+        <div class="rule-card do">
+          <div class="rule-label">Do</div>
+          <ul class="rule-list">
+            <li>Short, declarative sentences — one idea per line</li>
+            <li>Active voice — "Loan approved" not "Your loan has been approved"</li>
+            <li>Specific numbers — "14 days" not "about two weeks"</li>
+            <li>Monospace for all data values, IDs, amounts</li>
+            <li>ALL CAPS DM Mono for section labels only</li>
+          </ul>
+        </div>
+        <div class="rule-card dont">
+          <div class="rule-label">Don't</div>
+          <ul class="rule-list">
+            <li>Marketing hedges — "seamless", "world-class", "powerful"</li>
+            <li>Explain the obvious — label says it, tooltip says it again</li>
+            <li>Mix serif and sans in the same paragraph</li>
+            <li>Use Newsreader below 24px or above weight 500</li>
+            <li>Use secondary palette (sapphire/peridot/topaz) as primary accent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ COLOUR ═══════════════════ -->
+<div id="colour" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Foundation</div>
+    <h1 class="page-title">Colour</h1>
+    <p class="page-desc">The _able palette. Click any swatch to copy its hex value. Reference tokens from <code style="font-family:var(--fm);font-size:13px">src/tokens/colors.css</code>.</p>
+  </div>
+  <div class="content">
+
+    <div class="block">
+      <div class="block-title">Primary — Mulberry family</div>
+      <p class="block-desc">The core brand colour. Darker shades anchor backgrounds; Mulberry Bright appears on active states and CTAs. Never use these as decoration — they carry brand weight.</p>
+      <div class="swatch-row">
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#180113')">
+          <div class="swatch-color" style="background:#180113"></div>
+          <div class="swatch-info"><span class="swatch-name">Mulberry Black</span><span class="swatch-hex">#180113</span><span class="swatch-var">--able-mulberry-black</span></div>
+        </div>
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#2E0524')">
+          <div class="swatch-color" style="background:#2E0524"></div>
+          <div class="swatch-info"><span class="swatch-name">Mulberry Deep</span><span class="swatch-hex">#2E0524</span><span class="swatch-var">--able-mulberry-deep</span></div>
+        </div>
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#3C012E')">
+          <div class="swatch-color" style="background:#3C012E"></div>
+          <div class="swatch-info"><span class="swatch-name">Mulberry</span><span class="swatch-hex">#3C012E</span><span class="swatch-var">--able-mulberry</span></div>
+        </div>
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#6A0446')">
+          <div class="swatch-color" style="background:#6A0446"></div>
+          <div class="swatch-info"><span class="swatch-name">Mulberry Bright</span><span class="swatch-hex">#6A0446</span><span class="swatch-var">--able-mulberry-bright</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Primary — Aquamarine family</div>
+      <p class="block-desc">The action colour. Aqua is the accent for CTAs, active states, and focus rings. Aqua Deep is the hover state and the success/positive semantic role.</p>
+      <div class="swatch-row">
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#42C9AE')">
+          <div class="swatch-color" style="background:#42C9AE"></div>
+          <div class="swatch-info"><span class="swatch-name">Aqua Bright</span><span class="swatch-hex">#42C9AE</span><span class="swatch-var">--able-aqua</span></div>
+        </div>
+        <div class="swatch swatch-lg" onclick="copySwatch(this,'#009280')">
+          <div class="swatch-color" style="background:#009280"></div>
+          <div class="swatch-info"><span class="swatch-name">Aqua Deep</span><span class="swatch-hex">#009280</span><span class="swatch-var">--able-aqua-deep</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Neutral — Affogato family</div>
+      <p class="block-desc">Warm coffee-tone neutrals. Foam is the default page background. Storm is muted text. All named after coffee preparations.</p>
+      <div class="swatch-row">
+        <div class="swatch" onclick="copySwatch(this,'#F6F3EE')"><div class="swatch-color" style="background:#F6F3EE;border-bottom:1px solid #E0DDD5"></div><div class="swatch-info"><span class="swatch-name">Foam</span><span class="swatch-hex">#F6F3EE</span><span class="swatch-var">--able-foam</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#FBFAF8')"><div class="swatch-color" style="background:#FBFAF8;border-bottom:1px solid #E8E4DC"></div><div class="swatch-info"><span class="swatch-name">Steam</span><span class="swatch-hex">#FBFAF8</span><span class="swatch-var">--able-steam</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#E8E2D7')"><div class="swatch-color" style="background:#E8E2D7"></div><div class="swatch-info"><span class="swatch-name">Crema</span><span class="swatch-hex">#E8E2D7</span><span class="swatch-var">--able-crema</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#D3D3D3')"><div class="swatch-color" style="background:#D3D3D3"></div><div class="swatch-info"><span class="swatch-name">Fog</span><span class="swatch-hex">#D3D3D3</span><span class="swatch-var">--able-fog</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#C2B79D')"><div class="swatch-color" style="background:#C2B79D"></div><div class="swatch-info"><span class="swatch-name">Cortado</span><span class="swatch-hex">#C2B79D</span><span class="swatch-var">--able-cortado</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#A99877')"><div class="swatch-color" style="background:#A99877"></div><div class="swatch-info"><span class="swatch-name">Latte</span><span class="swatch-hex">#A99877</span><span class="swatch-var">--able-latte</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#9A855D')"><div class="swatch-color" style="background:#9A855D"></div><div class="swatch-info"><span class="swatch-name">Affogato</span><span class="swatch-hex">#9A855D</span><span class="swatch-var">--able-affogato</span></div></div>
+        <div class="swatch" onclick="copySwatch(this,'#888888')"><div class="swatch-color" style="background:#888888"></div><div class="swatch-info"><span class="swatch-name">Storm</span><span class="swatch-hex">#888888</span><span class="swatch-var">--able-storm</span></div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Secondary — use sparingly</div>
+      <p class="block-desc">For data visualisation, category tags, and UI highlights only. Do not use as primary accent. Each secondary colour has a "deep" counterpart for light backgrounds.</p>
+      <div class="swatch-row">
+        <div class="swatch-group">
+          <div class="swatch-group-label">Sapphire</div>
+          <div class="swatch-row" style="margin:0;gap:8px">
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#654DF9')"><div class="swatch-color" style="background:#654DF9;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Bright</span><span class="swatch-hex">#654DF9</span></div></div>
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#3C26C4')"><div class="swatch-color" style="background:#3C26C4;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Deep</span><span class="swatch-hex">#3C26C4</span></div></div>
+          </div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch-group-label">Peridot</div>
+          <div class="swatch-row" style="margin:0;gap:8px">
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#C3D044')"><div class="swatch-color" style="background:#C3D044;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Bright</span><span class="swatch-hex">#C3D044</span></div></div>
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#828F13')"><div class="swatch-color" style="background:#828F13;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Deep</span><span class="swatch-hex">#828F13</span></div></div>
+          </div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch-group-label">Topaz</div>
+          <div class="swatch-row" style="margin:0;gap:8px">
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#EF61CE')"><div class="swatch-color" style="background:#EF61CE;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Bright</span><span class="swatch-hex">#EF61CE</span></div></div>
+            <div class="swatch" style="width:70px" onclick="copySwatch(this,'#89105F')"><div class="swatch-color" style="background:#89105F;height:48px"></div><div class="swatch-info"><span class="swatch-name" style="font-size:9px">Deep</span><span class="swatch-hex">#89105F</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Semantic tokens — light mode</div>
+      <p class="block-desc">Use semantic tokens in code, not raw hex. They adapt to dark mode automatically.</p>
+      <div class="token-row">
+        <div class="token-item"><div class="token-swatch" style="background:#19540D"></div><span class="token-name">--able-success</span><span class="token-role">Positive outcomes, PAR healthy, approved</span><span class="token-hex">#19540D</span></div>
+        <div class="token-item"><div class="token-swatch" style="background:#9A855D"></div><span class="token-name">--able-warning</span><span class="token-role">PAR at risk, pending, requires attention</span><span class="token-hex">#9A855D</span></div>
+        <div class="token-item"><div class="token-swatch" style="background:#A10000"></div><span class="token-name">--able-danger</span><span class="token-role">Defaulted, rejected, destructive actions</span><span class="token-hex">#A10000</span></div>
+        <div class="token-item"><div class="token-swatch" style="background:#3C26C4"></div><span class="token-name">--able-info</span><span class="token-role">Informational states, neutral notices</span><span class="token-hex">#3C26C4</span></div>
+        <div class="token-item"><div class="token-swatch" style="background:#42C9AE"></div><span class="token-name">--able-accent</span><span class="token-role">CTAs, active nav, focus rings, links</span><span class="token-hex">#42C9AE</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ TYPOGRAPHY ═══════════════════ -->
+<div id="typography" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Foundation</div>
+    <h1 class="page-title">Typography</h1>
+    <p class="page-desc">Three typefaces. Each with a specific role. Never mix roles — a number is always DM Mono, a headline is always Newsreader.</p>
+  </div>
+  <div class="content">
+
+    <div class="block">
+      <div class="block-title">Newsreader — Display &amp; editorial</div>
+      <p class="block-desc">Substitute for Financier Display. Use at weights 300–500 only. Ideal for page titles, hero copy, large metric labels. Never use below 24px.</p>
+      <div class="type-specimen-card">
+        <div class="type-meta">
+          <span class="type-chip active-chip">Newsreader</span>
+          <span class="type-chip">Display / Serif</span>
+          <span class="type-chip">Google Fonts</span>
+          <span class="type-chip">Weight 300–500</span>
+        </div>
+        <div class="type-scale">
+          <div class="type-scale-row">
+            <div class="type-label">Display LG</div>
+            <div class="type-preview"><span style="font-family:var(--fd);font-size:48px;font-weight:300;color:var(--text);letter-spacing:-0.025em;line-height:1.05">Embedded Finance</span></div>
+            <div class="type-size-note">48px / 300</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Display MD</div>
+            <div class="type-preview"><span style="font-family:var(--fd);font-size:40px;font-weight:400;color:var(--text);letter-spacing:-0.02em;line-height:1.1">Platform Dashboard</span></div>
+            <div class="type-size-note">40px / 400</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Display SM</div>
+            <div class="type-preview"><span style="font-family:var(--fd);font-size:32px;font-weight:400;color:var(--text);letter-spacing:-0.015em">Loan Application</span></div>
+            <div class="type-size-note">32px / 400</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Display XS</div>
+            <div class="type-preview"><span style="font-family:var(--fd);font-size:24px;font-weight:400;font-style:italic;color:var(--text)">Active across 4 markets</span></div>
+            <div class="type-size-note">24px italic / 400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Host Grotesk — UI &amp; body</div>
+      <p class="block-desc">The workhorse font. Navigation, buttons, labels, body copy, table cells — anything interactive or informational. Substitute for Founders Grotesk.</p>
+      <div class="type-specimen-card">
+        <div class="type-meta">
+          <span class="type-chip active-chip">Host Grotesk</span>
+          <span class="type-chip">UI / Sans-serif</span>
+          <span class="type-chip">Google Fonts</span>
+          <span class="type-chip">Weight 300–800</span>
+        </div>
+        <div class="type-scale">
+          <div class="type-scale-row">
+            <div class="type-label">Heading LG</div>
+            <div class="type-preview"><span style="font-family:var(--fb);font-size:24px;font-weight:700;color:var(--text);letter-spacing:-0.01em">Customer Portfolio</span></div>
+            <div class="type-size-note">24px / 700</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Heading MD</div>
+            <div class="type-preview"><span style="font-family:var(--fb);font-size:20px;font-weight:600;color:var(--text)">Approval Queue</span></div>
+            <div class="type-size-note">20px / 600</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Heading SM</div>
+            <div class="type-preview"><span style="font-family:var(--fb);font-size:16px;font-weight:600;color:var(--text)">Risk Configuration</span></div>
+            <div class="type-size-note">16px / 600</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Body</div>
+            <div class="type-preview"><span style="font-family:var(--fb);font-size:14px;font-weight:400;color:var(--text2);line-height:1.65">Configurable embedded lending infrastructure for banks, telcos, and fintechs across Africa and India. One platform, every product a configuration.</span></div>
+            <div class="type-size-note">14px / 400</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Small</div>
+            <div class="type-preview"><span style="font-family:var(--fb);font-size:12px;font-weight:400;color:var(--text2)">Last updated 14 Jun 2026 at 09:41 UTC</span></div>
+            <div class="type-size-note">12px / 400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">DM Mono — Data, eyebrows &amp; captions</div>
+      <p class="block-desc">Monospace precision for anything numerical or categorical. ALL CAPS for section labels. Sentence case for data values. Letter-spacing 0.10–0.18em when uppercase.</p>
+      <div class="type-specimen-card">
+        <div class="type-meta">
+          <span class="type-chip active-chip">DM Mono</span>
+          <span class="type-chip">Monospace</span>
+          <span class="type-chip">Google Fonts</span>
+          <span class="type-chip">Weight 300–500</span>
+        </div>
+        <div class="type-scale">
+          <div class="type-scale-row">
+            <div class="type-label">Eyebrow</div>
+            <div class="type-preview"><span style="font-family:var(--fm);font-size:10px;font-weight:400;text-transform:uppercase;letter-spacing:0.16em;color:var(--muted)">Platform Status</span></div>
+            <div class="type-size-note">10px / 400 / 0.16em</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">KPI value</div>
+            <div class="type-preview"><span style="font-family:var(--fm);font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--text)">TZS 4.7M</span></div>
+            <div class="type-size-note">28px / 700</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Data cell</div>
+            <div class="type-preview"><span style="font-family:var(--fm);font-size:13px;font-weight:400;color:var(--text);font-variant-numeric:tabular-nums">+255 712 345 678</span></div>
+            <div class="type-size-note">13px / 400 / tabular</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Caption</div>
+            <div class="type-preview"><span style="font-family:var(--fm);font-size:11px;font-weight:400;color:var(--muted)">PAR 30 · last 90 days</span></div>
+            <div class="type-size-note">11px / 400</div>
+          </div>
+          <div class="type-scale-row">
+            <div class="type-label">Version tag</div>
+            <div class="type-preview"><span style="font-family:var(--fm);font-size:9px;font-weight:400;text-transform:uppercase;letter-spacing:0.12em;background:rgba(66,201,174,0.12);color:#009280;border:1px solid rgba(66,201,174,0.25);padding:3px 8px;border-radius:20px">v 1.0.0</span></div>
+            <div class="type-size-note">9px / 400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ SPACE ═══════════════════ -->
+<div id="space" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Foundation</div>
+    <h1 class="page-title">Space &amp; Layout</h1>
+    <p class="page-desc">Base unit 4px. Every spacing value is a multiple of 4. Border radii from 4px to full-pill.</p>
+  </div>
+  <div class="content">
+    <div class="block">
+      <div class="block-title">Spacing scale</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm)">
+        <div class="space-row" style="padding:12px 24px;border-bottom:1px solid var(--border)">
+          <span style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);min-width:100px">Token</span>
+          <span style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);min-width:40px">px</span>
+          <span style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);flex:1">Visual</span>
+          <span style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">Usage</span>
+        </div>
+        <div id="spacing-rows"></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Border radius</div>
+      <div class="row" style="align-items:flex-end">
+        <div style="text-align:center">
+          <div style="width:48px;height:48px;background:var(--aqua);border-radius:4px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">xs · 4px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:56px;height:56px;background:var(--aqua);border-radius:6px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">sm · 6px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:64px;height:64px;background:var(--aqua);border-radius:8px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">md · 8px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:72px;height:72px;background:var(--aqua);border-radius:12px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">lg · 12px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:80px;height:80px;background:var(--aqua);border-radius:16px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">xl · 16px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:88px;height:88px;background:var(--aqua);border-radius:20px;margin:0 auto 8px"></div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">2xl · 20px</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:80px;height:32px;background:var(--aqua);border-radius:9999px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--fm);font-size:9px;color:var(--m-black)">pill</span>
+          </div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">full · 9999px</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ELEVATION ═══════════════════ -->
+<div id="elevation" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Foundation</div>
+    <h1 class="page-title">Elevation</h1>
+    <p class="page-desc">Five shadow levels. All tinted with warm Mulberry rather than generic black. The glow variants use Aqua for interactive feedback.</p>
+  </div>
+  <div class="content">
+    <div class="block">
+      <div class="block-title">Shadow scale</div>
+      <div class="shadow-grid">
+        <div class="shadow-card" style="box-shadow:0 1px 2px rgba(24,1,19,0.04)">
+          <div class="shadow-name">shadow-xs</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">Subtle divider lift</div>
+          <div class="shadow-val">0 1px 2px rgba(24,1,19,.04)</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 1px 3px rgba(24,1,19,0.06),0 1px 2px rgba(24,1,19,0.04)">
+          <div class="shadow-name">shadow-sm</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">Inputs, nav items</div>
+          <div class="shadow-val">0 1px 3px rgba(24,1,19,.06),<br>0 1px 2px rgba(24,1,19,.04)</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 4px 8px rgba(24,1,19,0.06),0 2px 4px rgba(24,1,19,0.04)">
+          <div class="shadow-name">shadow-md</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">Cards, stat chips</div>
+          <div class="shadow-val">0 4px 8px rgba(24,1,19,.06),<br>0 2px 4px rgba(24,1,19,.04)</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 12px 32px rgba(24,1,19,0.09),0 4px 8px rgba(24,1,19,0.05)">
+          <div class="shadow-name">shadow-lg</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">Modals, dropdowns</div>
+          <div class="shadow-val">0 12px 32px rgba(24,1,19,.09),<br>0 4px 8px rgba(24,1,19,.05)</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 0 0 3px rgba(66,201,174,0.20)">
+          <div class="shadow-name">glow-sm</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">Focus ring, hover border</div>
+          <div class="shadow-val">0 0 0 3px rgba(66,201,174,.20)</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 0 16px rgba(66,201,174,0.24)">
+          <div class="shadow-name">glow-md</div>
+          <div style="font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px">CTA hover, active state</div>
+          <div class="shadow-val">0 0 16px rgba(66,201,174,.24)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ BADGES ═══════════════════ -->
+<div id="badges" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Components</div>
+    <h1 class="page-title">Badge</h1>
+    <p class="page-desc">Status labels in pill form. DM Mono uppercase with semantic colour coding. Use the animated dot for live/active states only.</p>
+  </div>
+  <div class="content">
+    <div class="block">
+      <div class="block-title">Light mode</div>
+      <div class="demo-box">
+        <div class="demo-canvas" style="gap:12px;flex-direction:column;align-items:flex-start">
+          <div class="row">
+            <span class="badge b-success"><span class="badge-dot"></span>Active</span>
+            <span class="badge b-success">Approved</span>
+            <span class="badge b-warning">Pending</span>
+            <span class="badge b-danger">Defaulted</span>
+            <span class="badge b-info">Processing</span>
+            <span class="badge b-default">Inactive</span>
+          </div>
+          <div class="row">
+            <span class="badge b-sapphire">Scoring</span>
+            <span class="badge b-peridot">USSD</span>
+            <span class="badge b-topaz">Mobile SDK</span>
+          </div>
+        </div>
+        <div class="demo-code"><pre>&lt;<span class="code-tag">Badge</span> <span class="code-attr">variant</span>=<span class="code-string">"success"</span> <span class="code-attr">dot</span>&gt;Active&lt;/<span class="code-tag">Badge</span>&gt;
+&lt;<span class="code-tag">Badge</span> <span class="code-attr">variant</span>=<span class="code-string">"warning"</span>&gt;Pending&lt;/<span class="code-tag">Badge</span>&gt;
+&lt;<span class="code-tag">Badge</span> <span class="code-attr">variant</span>=<span class="code-string">"danger"</span>&gt;Defaulted&lt;/<span class="code-tag">Badge</span>&gt;</pre></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Dark mode</div>
+      <div class="demo-box">
+        <div class="demo-canvas dark-canvas" style="gap:12px;flex-direction:column;align-items:flex-start">
+          <div class="row">
+            <span class="badge b-success"><span class="badge-dot"></span>Active</span>
+            <span class="badge b-success">Approved</span>
+            <span class="badge b-warning">Pending</span>
+            <span class="badge b-danger">Defaulted</span>
+            <span class="badge b-info">Processing</span>
+            <span class="badge b-default">Inactive</span>
+          </div>
+          <div class="row">
+            <span class="badge b-sapphire">Scoring</span>
+            <span class="badge b-peridot">USSD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Usage rules</div>
+      <div class="rule-grid">
+        <div class="rule-card do">
+          <div class="rule-label">Do</div>
+          <ul class="rule-list">
+            <li>One badge per table cell maximum</li>
+            <li>Use dot only for live / real-time states</li>
+            <li>Match variant to semantic meaning — success = positive outcome, danger = problem</li>
+            <li>Keep label one or two words maximum</li>
+          </ul>
+        </div>
+        <div class="rule-card dont">
+          <div class="rule-label">Don't</div>
+          <ul class="rule-list">
+            <li>Use secondary colours (sapphire/peridot/topaz) for standard status states</li>
+            <li>Override the font — DM Mono uppercase is intentional</li>
+            <li>Stack multiple badges on the same row element</li>
+            <li>Use as a button or interactive element</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ BUTTONS ═══════════════════ -->
+<div id="buttons" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Components</div>
+    <h1 class="page-title">Button</h1>
+    <p class="page-desc">Four variants, three sizes. Primary is always Mulberry Deep in light mode and Aqua in dark mode. One primary action per screen section.</p>
+  </div>
+  <div class="content">
+    <div class="block">
+      <div class="block-title">Variants — light mode</div>
+      <div class="demo-box">
+        <div class="demo-canvas" style="align-items:center">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-destroy">Destructive</button>
+        </div>
+        <div class="demo-code"><pre>&lt;<span class="code-tag">Button</span> <span class="code-attr">variant</span>=<span class="code-string">"primary"</span>&gt;Save changes&lt;/<span class="code-tag">Button</span>&gt;
+&lt;<span class="code-tag">Button</span> <span class="code-attr">variant</span>=<span class="code-string">"ghost"</span>&gt;Cancel&lt;/<span class="code-tag">Button</span>&gt;
+&lt;<span class="code-tag">Button</span> <span class="code-attr">variant</span>=<span class="code-string">"outline"</span>&gt;Export&lt;/<span class="code-tag">Button</span>&gt;</pre></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Sizes</div>
+      <div class="demo-box">
+        <div class="demo-canvas" style="align-items:center">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Medium</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Dark mode</div>
+      <div class="demo-box">
+        <div class="demo-canvas dark-canvas" style="align-items:center">
+          <button class="btn" style="background:#42C9AE;color:#180113;border-color:#42C9AE;font-family:var(--fb);font-weight:600;font-size:13.5px;padding:0 16px;height:36px;border-radius:8px;cursor:pointer">Primary</button>
+          <button class="btn" style="background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.14);font-family:var(--fb);font-weight:600;font-size:13.5px;padding:0 16px;height:36px;border-radius:8px;cursor:pointer">Ghost</button>
+          <button class="btn" style="background:transparent;color:#42C9AE;border:1px solid #42C9AE;font-family:var(--fb);font-weight:600;font-size:13.5px;padding:0 16px;height:36px;border-radius:8px;cursor:pointer">Outline</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CARDS ═══════════════════ -->
+<div id="cards" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Components</div>
+    <h1 class="page-title">Card</h1>
+    <p class="page-desc">The primary surface container. Three variants: default (white), dark (Mulberry Deep), bordered (transparent). Cards are the building block of every dashboard view.</p>
+  </div>
+  <div class="content">
+    <div class="block">
+      <div class="block-title">Variants</div>
+      <div class="row" style="align-items:flex-start">
+        <div class="card-demo" style="flex:1">
+          <div class="card-h">Default card</div>
+          <p class="card-b">White surface with warm border and shadow. Used for data panels, module tiles, and form containers.</p>
+        </div>
+        <div class="card-demo-dark" style="flex:1">
+          <div class="card-h">Dark card</div>
+          <p class="card-b" style="color:rgba(255,255,255,0.55)">Mulberry Deep background. Used for KPI stat bars, hero stats, and high-contrast highlights.</p>
+        </div>
+        <div class="card-demo" style="flex:1;background:transparent;border:1px solid var(--border2);box-shadow:none">
+          <div class="card-h">Bordered card</div>
+          <p class="card-b">No fill, just border. Used for secondary info containers, nested sections, and outlined groups.</p>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">Hoverable / clickable states</div>
+      <div class="row">
+        <div class="card-demo" style="cursor:pointer;transition:all 0.25s;max-width:280px" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(24,1,19,0.12)';this.style.borderColor='#42C9AE'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sh-md)';this.style.borderColor='var(--border)'">
+          <div class="card-h">Clickable tile</div>
+          <p class="card-b" style="font-size:13px">Hover me. Border becomes accent, card lifts 4px, shadow deepens. Used for module tiles.</p>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)">Open →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PATTERNS ═══════════════════ -->
+<div id="patterns" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Patterns</div>
+    <h1 class="page-title">UI Patterns</h1>
+    <p class="page-desc">Assembled patterns built from design system primitives. Use these as the reference for common layouts — do not reinvent them per feature.</p>
+  </div>
+  <div class="content">
+
+    <div class="block">
+      <div class="block-title">Module tile</div>
+      <p class="block-desc">7-tile grid on the platform dashboard. Always: icon wrap (branded color) + DM Mono tag + Host Grotesk title + body + "Open →" footer.</p>
+      <div class="row">
+        <div class="tile-demo" style="--tile-color:#009280">
+          <div class="tile-icon-wrap" style="background:#009280">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="tile-meta"><span class="tile-tag">Operations</span><span class="tile-status"><span class="tile-status-dot"></span>Live</span></div>
+          <div class="tile-title">Banking Front End</div>
+          <div class="tile-desc">Full customer lifecycle — KYC profiles, live loan book, savings accounts.</div>
+          <div class="tile-footer"><span class="tile-arrow">Open →</span></div>
+        </div>
+        <div class="tile-demo" style="--tile-color:#654DF9">
+          <div class="tile-icon-wrap" style="background:#654DF9">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          </div>
+          <div class="tile-meta"><span class="tile-tag">Risk</span><span class="tile-status"><span class="tile-status-dot"></span>Live</span></div>
+          <div class="tile-title">Scoring Engine</div>
+          <div class="tile-desc">PMML risk models, scorecard authoring, strategy chaining and parameter sweep.</div>
+          <div class="tile-footer"><span class="tile-arrow">Open →</span></div>
+        </div>
+        <div class="tile-demo" style="--tile-color:#42C9AE">
+          <div class="tile-icon-wrap" style="background:#42C9AE">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#180113" stroke-width="2"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 12h6l4-5.5M13 12l4 5.5"/></svg>
+          </div>
+          <div class="tile-meta"><span class="tile-tag">E2E Demo</span><span class="tile-status"><span class="tile-status-dot" style="background:#42C9AE"></span>Interactive</span></div>
+          <div class="tile-title">Demo Journeys</div>
+          <div class="tile-desc">Live API walk-through — onboarding, loan application and repayment.</div>
+          <div class="tile-footer"><span class="tile-arrow">Open →</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">KPI stat bar</div>
+      <p class="block-desc">4-column grid on white card. DM Mono for values, Host Grotesk for labels. Hover turns cell to Foam bg.</p>
+      <div class="kpi-bar">
+        <div class="kpi-chip"><div class="kpi-val">12,847</div><div class="kpi-label">Active Customers</div><div class="kpi-trend">total registered</div></div>
+        <div class="kpi-chip"><div class="kpi-val">TZS 4.7M</div><div class="kpi-label">Disbursed YTD</div><div class="kpi-trend">Jan – Jun 2026</div></div>
+        <div class="kpi-chip"><div class="kpi-val">3.2%</div><div class="kpi-label">Portfolio at Risk</div><div class="kpi-trend kpi-up">PAR 30 · last 90 days</div></div>
+        <div class="kpi-chip"><div class="kpi-val">4/4 services</div><div class="kpi-label">Platform Health</div><div class="kpi-trend kpi-up">live probe</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Sidebar navigation</div>
+      <p class="block-desc">Always dark Mulberry Deep regardless of page theme. Active item gets Aqua left border + tinted background. Section labels are DM Mono uppercase.</p>
+      <div class="sidebar-demo">
+        <div style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:6px 12px 8px">Platform</div>
+        <div class="sn-item sn-active">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+          <span class="sn-dot" style="margin-left:auto"></span>
+        </div>
+        <div class="sn-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Banking Front End
+        </div>
+        <div class="sn-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Reports &amp; Analytics
+        </div>
+        <div style="font-family:var(--fm);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:12px 12px 8px">Tools</div>
+        <div class="sn-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          Scoring Engine
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Login hero panel</div>
+      <p class="block-desc">58% of viewport width. Mulberry gradient over background photo. Newsreader headline, DM Mono eyebrow, module chips, metric footer.</p>
+      <div class="login-demo">
+        <div class="login-eyebrow">Able Group Innovation</div>
+        <div class="login-title">Embedded Finance<br>Platform</div>
+        <div class="login-sub">Configurable lending infrastructure for banks, telcos, and fintechs across Africa and India.</div>
+        <div class="login-chips">
+          <div class="login-chip"><span class="chip-dot" style="background:#009280"></span>Banking Front End</div>
+          <div class="login-chip"><span class="chip-dot" style="background:#654DF9"></span>Scoring Engine</div>
+          <div class="login-chip"><span class="chip-dot" style="background:#42C9AE"></span>Demo Journeys</div>
+          <div class="login-chip"><span class="chip-dot" style="background:#3C26C4"></span>Reports</div>
+        </div>
+        <div class="login-metrics">
+          <div class="login-metric"><strong>4</strong> Markets</div>
+          <div class="login-metric"><strong>500K+</strong> Borrowers</div>
+          <div class="login-metric"><strong>99.9%</strong> Uptime</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ CODE ═══════════════════ -->
+<div id="code" class="section">
+  <div class="page-head">
+    <div class="page-eyebrow">Developers</div>
+    <h1 class="page-title">Using in Code</h1>
+    <p class="page-desc">How to install, import, and consume the design system in any Able Group frontend repo.</p>
+  </div>
+  <div class="content">
+
+    <div class="block">
+      <div class="block-title">Installation</div>
+      <div class="step-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Configure GitHub Packages authentication</div>
+            <div class="step-desc">Add a <code style="font-family:var(--fm)">.npmrc</code> to your repo root:</div>
+            <div class="code-block" style="margin-top:12px"><pre><span class="code-comment"># .npmrc</span>
+<span class="code-string">@ablegroup:registry=https://npm.pkg.github.com</span>
+<span class="code-string">//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}</span></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Install the package</div>
+            <div class="code-block" style="margin-top:12px"><pre><span class="code-string">npm install @ablegroup/design-system</span></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Import the token CSS once in your app root</div>
+            <div class="code-block" style="margin-top:12px"><pre><span class="code-comment">// Next.js: pages/_app.js or app/layout.js</span>
+<span class="code-comment">// Vite:    src/main.jsx</span>
+<span class="code-comment">// Plain:   &lt;link rel="stylesheet" href="..."&gt;</span>
+
+<span class="code-key">import</span> <span class="code-string">'@ablegroup/design-system/tokens.css'</span></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Import components</div>
+            <div class="code-block" style="margin-top:12px"><pre><span class="code-key">import</span> { <span class="code-tag">Badge</span>, <span class="code-tag">Button</span>, <span class="code-tag">Card</span> } <span class="code-key">from</span> <span class="code-string">'@ablegroup/design-system'</span>
+
+<span class="code-key">export default function</span> <span class="code-tag">MyPage</span>() {
+  <span class="code-key">return</span> (
+    &lt;<span class="code-tag">Card</span>&gt;
+      &lt;<span class="code-tag">Badge</span> <span class="code-attr">variant</span>=<span class="code-string">"success"</span> <span class="code-attr">dot</span>&gt;Active&lt;/<span class="code-tag">Badge</span>&gt;
+      &lt;<span class="code-tag">Button</span> <span class="code-attr">variant</span>=<span class="code-string">"primary"</span>&gt;Approve loan&lt;/<span class="code-tag">Button</span>&gt;
+    &lt;/<span class="code-tag">Card</span>&gt;
+  )
+}</pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Use tokens directly in your own CSS</div>
+            <div class="code-block" style="margin-top:12px"><pre><span class="code-comment">/* Use CSS custom properties from the token layer */</span>
+.<span class="code-tag">my-panel</span> {
+  <span class="code-key">background</span>: <span class="code-val">var(--able-surface)</span>;
+  <span class="code-key">border</span>: <span class="code-val">1px solid var(--able-border)</span>;
+  <span class="code-key">color</span>: <span class="code-val">var(--able-text)</span>;
+  <span class="code-key">font-family</span>: <span class="code-val">var(--able-font-body)</span>;
+  <span class="code-key">box-shadow</span>: <span class="code-val">var(--able-shadow-md)</span>;
+}
+
+<span class="code-comment">/* Dark mode adapts automatically */</span>
+[<span class="code-attr">data-theme</span>=<span class="code-string">"dark"</span>] .<span class="code-tag">my-panel</span> {
+  <span class="code-comment">/* no changes needed — tokens handle it */</span>
+}</pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Dark mode</div>
+      <p class="block-desc">Set <code style="font-family:var(--fm);font-size:13px">data-theme="dark"</code> on <code style="font-family:var(--fm);font-size:13px">&lt;html&gt;</code>. All tokens adapt. Do not re-declare token values in your own dark mode — extend the system instead.</p>
+      <div class="code-block"><pre><span class="code-comment">// Detect + persist user preference</span>
+<span class="code-key">const</span> saved = localStorage.getItem(<span class="code-string">'theme'</span>)
+<span class="code-key">const</span> preferred = window.matchMedia(<span class="code-string">'(prefers-color-scheme: dark)'</span>).matches ? <span class="code-string">'dark'</span> : <span class="code-string">'light'</span>
+document.documentElement.setAttribute(<span class="code-string">'data-theme'</span>, saved ?? preferred)</pre></div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Contributing</div>
+      <div class="rule-grid">
+        <div class="rule-card do">
+          <div class="rule-label">Adding a token</div>
+          <ul class="rule-list">
+            <li>Edit <code style="font-family:var(--fm);font-size:11px">src/tokens/colors.css</code> or the relevant token file</li>
+            <li>Add both light and dark mode values</li>
+            <li>Prefix all variables with <code style="font-family:var(--fm);font-size:11px">--able-</code></li>
+            <li>Bump the minor version and update playbook</li>
+          </ul>
+        </div>
+        <div class="rule-card do">
+          <div class="rule-label">Adding a component</div>
+          <ul class="rule-list">
+            <li>New folder under <code style="font-family:var(--fm);font-size:11px">src/components/</code></li>
+            <li>Component + CSS module + Story file</li>
+            <li>Consume tokens only — no hardcoded hex</li>
+            <li>Export from <code style="font-family:var(--fm);font-size:11px">src/index.js</code> and update playbook</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────
+let currentTheme = 'light';
+
+// ── Navigation ────────────────────────────────────────────
+function navigate(id) {
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.toggle('active', s.id === id);
+  });
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id);
+  });
+  document.querySelector('.main').scrollTop = 0;
+}
+
+// ── Theme toggle ──────────────────────────────────────────
+function toggleTheme() {
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  document.getElementById('theme-icon-sun').style.display  = currentTheme === 'dark'  ? 'block' : 'none';
+  document.getElementById('theme-icon-moon').style.display = currentTheme === 'light' ? 'block' : 'none';
+}
+
+// ── Swatch copy ───────────────────────────────────────────
+function copySwatch(el, hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    el.classList.add('swatch-copied');
+    setTimeout(() => el.classList.remove('swatch-copied'), 1200);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = hex; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    el.classList.add('swatch-copied');
+    setTimeout(() => el.classList.remove('swatch-copied'), 1200);
+  });
+}
+
+// ── Spacing rows ──────────────────────────────────────────
+const SPACING = [
+  { name: '--able-space-1',  px:  4, use: 'Icon gap, tight padding' },
+  { name: '--able-space-2',  px:  8, use: 'Badge padding, icon gap medium' },
+  { name: '--able-space-3',  px: 12, use: 'Nav item padding, input padding' },
+  { name: '--able-space-4',  px: 16, use: 'Card padding sm, section gap' },
+  { name: '--able-space-5',  px: 20, use: 'Nav section padding' },
+  { name: '--able-space-6',  px: 24, use: 'Card padding md, grid gutter' },
+  { name: '--able-space-8',  px: 32, use: 'Section gap, modal padding' },
+  { name: '--able-space-10', px: 40, use: 'Page padding, large section gap' },
+  { name: '--able-space-12', px: 48, use: 'Page head padding, hero padding' },
+  { name: '--able-space-16', px: 64, use: 'Content max-width padding, hero lr' },
+  { name: '--able-space-20', px: 80, use: 'Section bottom padding' },
+];
+
+window.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('spacing-rows');
+  if (container) {
+    SPACING.forEach(s => {
+      const row = document.createElement('div');
+      row.className = 'space-row';
+      row.style.padding = '10px 24px';
+      row.innerHTML = `
+        <span class="space-name" style="font-family:var(--fm);font-size:11px;color:var(--text);min-width:160px">${s.name}</span>
+        <span class="space-px" style="font-family:var(--fm);font-size:11px;color:var(--text2);min-width:40px">${s.px}px</span>
+        <div class="space-bar" style="width:${s.px * 2}px;min-width:4px;background:var(--aqua);border-radius:4px;height:16px;flex-shrink:0"></div>
+        <span class="space-use" style="font-size:12px;color:var(--text2);margin-left:16px">${s.use}</span>
+      `;
+      container.appendChild(row);
+    });
+  }
+});
+</script>
+</body>
+</html>

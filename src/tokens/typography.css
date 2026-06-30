@@ -1,0 +1,158 @@
+/*
+ * _able Design System — Typography Tokens
+ *
+ * Three fonts, each with a distinct role:
+ *
+ *   Newsreader      — Display / editorial headings
+ *                     Substitute for Financier Display (licensed)
+ *                     Use at weights 300–500 only; heavy weight reads wrong
+ *
+ *   Host Grotesk    — UI body / labels / navigation
+ *                     Substitute for Founders Grotesk (licensed)
+ *                     The workhorse font — use for everything interactive
+ *
+ *   DM Mono         — Eyebrows / captions / data / code
+ *                     ALL CAPS only for labels; sentence case for data values
+ *                     Pairs with letter-spacing 0.10–0.18em when uppercase
+ *
+ * Loading (add to <head>):
+ *   https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;
+ *   1,300;1,400;1,500&family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;
+ *   0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Newsreader:ital,opsz,wght@
+ *   0,6..72,200..800;1,6..72,200..800&display=swap
+ */
+
+:root {
+  /* ── Font families ─────────────────────────────────────── */
+  --able-font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --able-font-body:    'Host Grotesk', system-ui, -apple-system, sans-serif;
+  --able-font-mono:    'DM Mono', 'JetBrains Mono', 'Cascadia Code', monospace;
+
+  /* ── Type scale ─────────────────────────────────────────
+     Display: Newsreader, weight 300–400
+     UI:      Host Grotesk, weight 400–700
+     Caption: DM Mono, weight 300–500                     */
+
+  /* Display scale — Newsreader */
+  --able-text-display-2xl: 88px;   /* Hero / splash only */
+  --able-text-display-xl:  64px;   /* Section hero */
+  --able-text-display-lg:  48px;   /* Page title */
+  --able-text-display-md:  40px;   /* Card title / dashboard header */
+  --able-text-display-sm:  32px;   /* Subheader */
+
+  /* UI scale — Host Grotesk */
+  --able-text-xl:   24px;
+  --able-text-lg:   20px;
+  --able-text-md:   16px;
+  --able-text-base: 14px;   /* default body */
+  --able-text-sm:   13px;
+  --able-text-xs:   12px;
+
+  /* Mono scale — DM Mono */
+  --able-text-mono-md:  13px;
+  --able-text-mono-sm:  12px;
+  --able-text-mono-xs:  10px;   /* eyebrow / uppercase label */
+  --able-text-mono-2xs: 9px;
+
+  /* ── Font weights ──────────────────────────────────────── */
+  --able-weight-light:    300;
+  --able-weight-regular:  400;
+  --able-weight-medium:   500;
+  --able-weight-semibold: 600;
+  --able-weight-bold:     700;
+
+  /* ── Line heights ──────────────────────────────────────── */
+  --able-leading-tight:   1.08;
+  --able-leading-snug:    1.25;
+  --able-leading-normal:  1.5;
+  --able-leading-relaxed: 1.65;
+
+  /* ── Letter spacing ────────────────────────────────────── */
+  --able-tracking-tight:   -0.025em;
+  --able-tracking-normal:   0em;
+  --able-tracking-wide:     0.04em;
+  --able-tracking-wider:    0.08em;
+  --able-tracking-widest:   0.14em;   /* eyebrow / uppercase mono */
+  --able-tracking-superwide:0.18em;   /* top-level section label */
+}
+
+/* ── Utility classes ───────────────────────────────────── */
+
+/* Display */
+.able-display-lg {
+  font-family: var(--able-font-display);
+  font-size: var(--able-text-display-lg);
+  font-weight: var(--able-weight-regular);
+  line-height: var(--able-leading-tight);
+  letter-spacing: var(--able-tracking-tight);
+}
+
+.able-display-md {
+  font-family: var(--able-font-display);
+  font-size: var(--able-text-display-md);
+  font-weight: var(--able-weight-regular);
+  line-height: var(--able-leading-tight);
+  letter-spacing: var(--able-tracking-tight);
+}
+
+.able-display-sm {
+  font-family: var(--able-font-display);
+  font-size: var(--able-text-display-sm);
+  font-weight: var(--able-weight-light);
+  line-height: var(--able-leading-snug);
+  letter-spacing: var(--able-tracking-tight);
+}
+
+/* Headings */
+.able-heading-lg {
+  font-family: var(--able-font-body);
+  font-size: var(--able-text-xl);
+  font-weight: var(--able-weight-bold);
+  line-height: var(--able-leading-snug);
+  letter-spacing: -0.01em;
+}
+
+.able-heading-md {
+  font-family: var(--able-font-body);
+  font-size: var(--able-text-lg);
+  font-weight: var(--able-weight-semibold);
+  line-height: var(--able-leading-snug);
+}
+
+.able-heading-sm {
+  font-family: var(--able-font-body);
+  font-size: var(--able-text-md);
+  font-weight: var(--able-weight-semibold);
+  line-height: var(--able-leading-normal);
+}
+
+/* Body */
+.able-body-lg  { font-size: var(--able-text-md);   line-height: var(--able-leading-relaxed); }
+.able-body-md  { font-size: var(--able-text-base); line-height: var(--able-leading-normal); }
+.able-body-sm  { font-size: var(--able-text-sm);   line-height: var(--able-leading-normal); }
+
+/* Eyebrow — DM Mono uppercase */
+.able-eyebrow {
+  font-family: var(--able-font-mono);
+  font-size: var(--able-text-mono-xs);
+  font-weight: var(--able-weight-regular);
+  text-transform: uppercase;
+  letter-spacing: var(--able-tracking-widest);
+  color: var(--able-text-muted);
+}
+
+/* Caption / data */
+.able-caption {
+  font-family: var(--able-font-mono);
+  font-size: var(--able-text-mono-sm);
+  font-weight: var(--able-weight-regular);
+  letter-spacing: var(--able-tracking-wide);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Code */
+.able-code {
+  font-family: var(--able-font-mono);
+  font-size: var(--able-text-mono-md);
+  font-weight: var(--able-weight-regular);
+}

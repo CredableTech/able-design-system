@@ -1,0 +1,50 @@
+/*
+ * _able Design System — Token barrel
+ * Import this single file to get the complete token set.
+ *
+ * Usage:
+ *   import '@ablegroup/design-system/tokens.css'
+ *   -- or --
+ *   @import url('node_modules/@ablegroup/design-system/dist/tokens.css');
+ */
+
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './shadows.css';
+
+/* ── Base reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--able-bg);
+  color: var(--able-text);
+  font-family: var(--able-font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(24,1,19,0.10); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(24,1,19,0.20); }
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.26); }
+
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }

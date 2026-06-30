@@ -1,0 +1,40 @@
+/*
+ * _able Design System — Spacing & Layout Tokens
+ * Base unit: 4px. All spacing is a multiple of 4.
+ */
+
+:root {
+  /* ── Spacing scale ─────────────────────────────────────── */
+  --able-space-1:   4px;
+  --able-space-2:   8px;
+  --able-space-3:   12px;
+  --able-space-4:   16px;
+  --able-space-5:   20px;
+  --able-space-6:   24px;
+  --able-space-8:   32px;
+  --able-space-10:  40px;
+  --able-space-12:  48px;
+  --able-space-16:  64px;
+  --able-space-20:  80px;
+  --able-space-24:  96px;
+
+  /* ── Border radius ─────────────────────────────────────── */
+  --able-radius-xs:   4px;
+  --able-radius-sm:   6px;
+  --able-radius-md:   8px;
+  --able-radius-lg:   12px;
+  --able-radius-xl:   16px;
+  --able-radius-2xl:  20px;
+  --able-radius-full: 9999px;   /* pill / badge */
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --able-sidebar-width:          240px;
+  --able-sidebar-width-collapsed: 52px;
+  --able-topbar-height:           52px;
+  --able-container-sm:            640px;
+  --able-container-md:            860px;
+  --able-container-lg:           1100px;
+  --able-container-xl:           1440px;
+  --able-grid-gutter:             24px;
+  --able-grid-columns:            12;
+}

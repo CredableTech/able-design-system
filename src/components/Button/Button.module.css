@@ -1,0 +1,97 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--able-font-body);
+  font-weight: 600;
+  border-radius: var(--able-radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 120ms, border-color 120ms, box-shadow 120ms, transform 100ms;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none !important; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+
+/* Sizes */
+.sm  { height: 30px; padding: 0 12px; font-size: 12px; gap: 6px; }
+.md  { height: 36px; padding: 0 16px; font-size: 13.5px; }
+.lg  { height: 44px; padding: 0 22px; font-size: 15px; gap: 10px; border-radius: var(--able-radius-lg); }
+
+/* Variants */
+.primary {
+  background: var(--able-mulberry-deep);
+  color: #FFFFFF;
+  border-color: var(--able-mulberry-deep);
+}
+.primary:hover:not(:disabled) {
+  background: var(--able-mulberry-black);
+  border-color: var(--able-mulberry-black);
+  box-shadow: 0 4px 12px rgba(46, 5, 36, 0.28);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--able-text-2);
+  border-color: var(--able-border);
+}
+.ghost:hover:not(:disabled) {
+  background: var(--able-hover);
+  color: var(--able-text);
+  border-color: var(--able-border-md);
+}
+
+.outline {
+  background: transparent;
+  color: var(--able-accent);
+  border-color: var(--able-accent);
+}
+.outline:hover:not(:disabled) {
+  background: var(--able-accent-dim);
+  box-shadow: var(--able-shadow-glow-sm);
+}
+
+.destructive {
+  background: transparent;
+  color: var(--able-danger);
+  border-color: var(--able-danger);
+}
+.destructive:hover:not(:disabled) {
+  background: var(--able-danger-dim);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .primary {
+  background: var(--able-aqua);
+  color: var(--able-mulberry-black);
+  border-color: var(--able-aqua);
+}
+[data-theme="dark"] .primary:hover:not(:disabled) {
+  background: var(--able-aqua-deep);
+  border-color: var(--able-aqua-deep);
+  box-shadow: var(--able-shadow-glow-md);
+}
+[data-theme="dark"] .ghost { border-color: var(--able-border); }
+[data-theme="dark"] .ghost:hover:not(:disabled) { border-color: var(--able-border-md); }
+
+/* Icon */
+.icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Spinner */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
