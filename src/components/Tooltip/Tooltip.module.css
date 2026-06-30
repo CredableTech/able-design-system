@@ -1,0 +1,28 @@
+.wrap { position: relative; display: inline-flex; }
+
+.tooltip {
+  position: absolute; z-index: var(--able-z-tooltip, 700);
+  background: #180113; color: rgba(255,255,255,0.88);
+  font-family: var(--able-font-body); font-size: 12px; font-weight: 500; line-height: 1.5;
+  padding: 6px 10px; border-radius: 8px; white-space: nowrap; max-width: 260px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.36);
+  animation: fadeIn var(--able-duration-fast, 100ms) var(--able-ease-out) both;
+  pointer-events: none;
+}
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+[data-theme="dark"] .tooltip { background: #2E0524; border: 1px solid rgba(255,255,255,0.12); }
+
+.arrow {
+  position: absolute; width: 6px; height: 6px;
+  background: inherit; transform: rotate(45deg);
+}
+
+/* Placement */
+.top    { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+.top .arrow { bottom: -3px; left: 50%; margin-left: -3px; }
+.bottom { top: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+.bottom .arrow { top: -3px; left: 50%; margin-left: -3px; }
+.left   { right: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+.left .arrow { right: -3px; top: 50%; margin-top: -3px; }
+.right  { left: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+.right .arrow { left: -3px; top: 50%; margin-top: -3px; }

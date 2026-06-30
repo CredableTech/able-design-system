@@ -1,0 +1,21 @@
+:root {
+  --able-border-none:   0px;
+  --able-border-thin:   1px;
+  --able-border-thick:  2px;
+  --able-border-heavy:  3px;
+
+  /* semantic */
+  --able-border:        rgba(24,1,19,0.08);
+  --able-border-md:     rgba(24,1,19,0.12);
+  --able-border-strong: rgba(24,1,19,0.20);
+  --able-focus-ring:    0 0 0 3px rgba(66,201,174,0.22);
+  --able-focus-ring-danger: 0 0 0 3px rgba(161,0,0,0.14);
+}
+
+[data-theme="dark"] {
+  --able-border:        rgba(255,255,255,0.08);
+  --able-border-md:     rgba(255,255,255,0.12);
+  --able-border-strong: rgba(255,255,255,0.22);
+  --able-focus-ring:    0 0 0 3px rgba(66,201,174,0.28);
+  --able-focus-ring-danger: 0 0 0 3px rgba(239,97,206,0.22);
+}

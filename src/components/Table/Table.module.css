@@ -1,0 +1,51 @@
+.wrap { width: 100%; overflow-x: auto; border-radius: var(--able-radius-xl, 16px); border: 1px solid var(--able-border); }
+.stickyHeader .thead th { position: sticky; top: 0; z-index: var(--able-z-raised, 10); }
+
+.table { width: 100%; border-collapse: collapse; font-family: var(--able-font-body); font-size: 14px; }
+
+.thead { background: var(--able-bg); }
+.th {
+  padding: 11px 16px; text-align: left;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--able-text2); white-space: nowrap;
+  border-bottom: 1px solid var(--able-border);
+  background: var(--able-bg);
+  user-select: none;
+}
+.thInner { display: inline-flex; align-items: center; gap: 6px; }
+.sortable { cursor: pointer; }
+.sortable:hover { color: var(--able-text); }
+.sorted   { color: var(--able-text); }
+.sortIcon { color: var(--able-muted); display: flex; }
+.sorted .sortIcon { color: var(--able-accent); }
+
+.tr { border-bottom: 1px solid var(--able-border); transition: background var(--able-duration-fast,100ms); }
+.tr:last-child { border-bottom: none; }
+.clickable { cursor: pointer; }
+.hoverable .tr:hover { background: var(--able-hover); }
+.striped .tr:nth-child(even) { background: var(--able-bg); }
+
+.td {
+  padding: 13px 16px; color: var(--able-text); vertical-align: middle; line-height: 1.5;
+}
+.bordered .td, .bordered .th { border-right: 1px solid var(--able-border); }
+.bordered .td:last-child, .bordered .th:last-child { border-right: none; }
+
+.compact .th { padding: 8px 12px; }
+.compact .td { padding: 9px 12px; }
+
+.align-right  { text-align: right; }
+.align-center { text-align: center; }
+.mono { font-family: var(--able-font-mono); font-size: 13px; }
+
+.emptyCell { text-align: center; color: var(--able-muted); padding: 40px; font-size: 14px; }
+
+.loadingRows { display: flex; flex-direction: column; gap: 12px; }
+.loadingRow  { display: flex; gap: 16px; }
+.loadingSkeleton {
+  flex: 1; height: 14px; border-radius: 6px;
+  background: linear-gradient(90deg, var(--able-border) 25%, rgba(24,1,19,0.12) 50%, var(--able-border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer { from { background-position: 200% center; } to { background-position: -200% center; } }

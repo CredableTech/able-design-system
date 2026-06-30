@@ -1,0 +1,44 @@
+.skeleton {
+  display: inline-block;
+  background: var(--able-border-md, rgba(24,1,19,0.10));
+  border-radius: var(--able-radius-sm, 4px);
+  vertical-align: middle;
+}
+.animated {
+  background: linear-gradient(
+    90deg,
+    var(--able-border-md, rgba(24,1,19,0.08)) 25%,
+    rgba(24,1,19,0.14) 50%,
+    var(--able-border-md, rgba(24,1,19,0.08)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+[data-theme="dark"] .animated {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.06) 25%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.06) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.line   { width: 100%; height: 14px; display: block; border-radius: 6px; }
+.circle { border-radius: 50%; }
+.block  { display: block; border-radius: var(--able-radius-lg, 12px); }
+.text   { height: 14px; width: 100%; display: block; }
+
+.linesWrap { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+
+.card {
+  background: var(--able-surface); border: 1px solid var(--able-border);
+  border-radius: var(--able-radius-xl, 16px); padding: 20px;
+}
+.cardTop { display: flex; gap: 12px; align-items: center; }
+.cardMeta { flex: 1; display: flex; flex-direction: column; gap: 4px; }

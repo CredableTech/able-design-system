@@ -1,6 +1,6 @@
 {
   "name": "@ablegroup/design-system",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "_able Group design system — tokens, components, playbook",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -24,6 +24,7 @@
     "build-storybook": "storybook build -o playbook-storybook",
     "storybook": "storybook dev -p 6006",
     "playbook": "open playbook/index.html",
+    "lint": "eslint src --ext .jsx,.js",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {

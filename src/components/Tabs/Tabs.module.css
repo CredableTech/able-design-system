@@ -1,0 +1,58 @@
+.root { display: flex; flex-direction: column; }
+
+.list {
+  display: flex; align-items: stretch;
+  overflow-x: auto; scrollbar-width: none;
+}
+.list::-webkit-scrollbar { display: none; }
+.fullWidth .list { width: 100%; }
+.fullWidth .tab  { flex: 1; justify-content: center; }
+
+/* Variants */
+.line .list { border-bottom: 1px solid var(--able-border); gap: 0; }
+.pill .list { gap: 6px; padding: 4px; background: var(--able-bg); border-radius: var(--able-radius-lg, 12px); }
+.card .list { gap: 0; border-bottom: 1px solid var(--able-border); }
+
+.tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 0 16px; height: 40px; white-space: nowrap;
+  font-family: var(--able-font-body); font-size: 14px; font-weight: 500;
+  color: var(--able-text2); background: none; border: none; cursor: pointer;
+  border-radius: 0; position: relative;
+  transition: color var(--able-duration-fast,100ms), background var(--able-duration-fast,100ms);
+}
+.tab:hover { color: var(--able-text); }
+
+.tabIcon { display: flex; }
+.tabDisabled { opacity: 0.4; cursor: not-allowed; }
+
+.count {
+  font-family: var(--able-font-mono); font-size: 10px; font-weight: 500;
+  background: var(--able-border-md, rgba(24,1,19,0.10)); color: var(--able-text2);
+  padding: 2px 6px; border-radius: 20px; letter-spacing: 0;
+}
+.active .count { background: rgba(66,201,174,0.15); color: var(--able-accent); }
+
+/* Line variant active */
+.line .active {
+  color: var(--able-text);
+}
+.line .active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--able-accent); border-radius: 2px 2px 0 0;
+}
+/* Pill variant active */
+.pill .tab { border-radius: var(--able-radius-md, 8px); height: 36px; }
+.pill .active {
+  background: var(--able-surface); color: var(--able-text);
+  box-shadow: var(--able-shadow-sm);
+}
+/* Card variant */
+.card .tab { border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; border-radius: 8px 8px 0 0; }
+.card .active { background: var(--able-surface); border-color: var(--able-border); border-bottom-color: var(--able-surface); color: var(--able-text); }
+
+.panel { padding: 20px 0; flex: 1; }
+
+/* Sizes */
+.size-sm .tab { height: 34px; font-size: 13px; padding: 0 12px; }
+.size-lg .tab { height: 48px; font-size: 15px; padding: 0 20px; }

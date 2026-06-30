@@ -1,0 +1,17 @@
+:root {
+  --able-duration-instant:  0ms;
+  --able-duration-fast:     100ms;
+  --able-duration-normal:   200ms;
+  --able-duration-slow:     350ms;
+  --able-duration-slower:   500ms;
+
+  --able-ease-default: cubic-bezier(0.16, 1, 0.3, 1);
+  --able-ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --able-ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --able-ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --able-ease-bounce:  cubic-bezier(0.34, 1.72, 0.64, 1);
+
+  --able-transition-fast:   all var(--able-duration-fast)   var(--able-ease-out);
+  --able-transition-normal: all var(--able-duration-normal) var(--able-ease-out);
+  --able-transition-spring: all var(--able-duration-slow)   var(--able-ease-spring);
+}

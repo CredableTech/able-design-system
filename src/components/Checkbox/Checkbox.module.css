@@ -1,0 +1,67 @@
+.wrap { display: flex; flex-direction: column; gap: 4px; }
+
+.label {
+  display: inline-flex; align-items: flex-start; gap: 10px;
+  cursor: pointer; user-select: none;
+}
+.disabled { cursor: not-allowed; opacity: 0.55; }
+
+.checkWrap { flex-shrink: 0; position: relative; width: 18px; height: 18px; margin-top: 1px; }
+
+.input {
+  position: absolute; inset: 0; opacity: 0; margin: 0; cursor: inherit;
+  width: 100%; height: 100%;
+}
+
+/* Checkbox box */
+.box {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--able-radius-sm, 4px);
+  border: 1.5px solid var(--able-border-strong, rgba(24,1,19,0.22));
+  background: var(--able-surface);
+  color: transparent;
+  transition:
+    background var(--able-duration-fast,100ms) var(--able-ease-out),
+    border-color var(--able-duration-fast,100ms) var(--able-ease-out),
+    color var(--able-duration-fast,100ms);
+}
+.input:hover ~ .box { border-color: var(--able-accent); }
+.input:checked ~ .box, .input:indeterminate ~ .box {
+  background: var(--able-accent); border-color: var(--able-accent); color: #180113;
+}
+.input:focus-visible ~ .box {
+  outline: none;
+  box-shadow: var(--able-focus-ring, 0 0 0 3px rgba(66,201,174,0.22));
+}
+.hasError .box { border-color: var(--able-danger); }
+
+/* Radio */
+.radio {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--able-border-strong, rgba(24,1,19,0.22));
+  background: var(--able-surface);
+  transition: border-color var(--able-duration-fast,100ms) var(--able-ease-out),
+              background var(--able-duration-fast,100ms);
+}
+.radioDot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: transparent;
+  transition: background var(--able-duration-fast,100ms) var(--able-ease-spring),
+              transform var(--able-duration-fast,100ms) var(--able-ease-spring);
+  transform: scale(0);
+}
+.input:hover ~ .radio { border-color: var(--able-accent); }
+.input:checked ~ .radio {
+  border-color: var(--able-accent); background: rgba(66,201,174,0.12);
+}
+.input:checked ~ .radio .radioDot {
+  background: var(--able-accent); transform: scale(1);
+}
+.input:focus-visible ~ .radio {
+  box-shadow: var(--able-focus-ring, 0 0 0 3px rgba(66,201,174,0.22));
+}
+
+.labelText { font-family: var(--able-font-body); font-size: 14px; color: var(--able-text); line-height: 1.5; }
+.helper { font-size: 12px; color: var(--able-text2); padding-left: 28px; }
+.helperError { color: var(--able-danger); }

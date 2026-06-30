@@ -1,0 +1,11 @@
+:root {
+  --able-z-below:    -1;
+  --able-z-base:      0;
+  --able-z-raised:    10;
+  --able-z-dropdown:  200;
+  --able-z-sticky:    300;
+  --able-z-overlay:   400;
+  --able-z-modal:     500;
+  --able-z-toast:     600;
+  --able-z-tooltip:   700;
+}
